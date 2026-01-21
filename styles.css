@@ -1,0 +1,555 @@
+/**
+ * Sora Prompt Queue - Styles
+ * 
+ * Styling for the queue panel UI and notifications
+ */
+
+/* ============================================================================
+   PANEL CONTAINER
+   ============================================================================ */
+
+#sora-queue-panel {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 360px;
+  max-height: 550px;
+  background: #1a1a2e;
+  border: 1px solid #333355;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 13px;
+  color: #e0e0e0;
+  z-index: 999999;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+#sora-queue-panel.sqp-minimized {
+  width: 160px;
+  max-height: 44px;
+}
+
+#sora-queue-panel.sqp-minimized .sqp-body,
+#sora-queue-panel.sqp-minimized .sqp-add-form,
+#sora-queue-panel.sqp-minimized .sqp-footer,
+#sora-queue-panel.sqp-minimized .sqp-status,
+#sora-queue-panel.sqp-minimized .sqp-alert,
+#sora-queue-panel.sqp-minimized .sqp-debug {
+  display: none !important;
+}
+
+/* ============================================================================
+   HEADER
+   ============================================================================ */
+
+.sqp-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  background: linear-gradient(135deg, #2a2a4a 0%, #1a1a2e 100%);
+  border-bottom: 1px solid #333355;
+  cursor: move;
+}
+
+.sqp-header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sqp-header-right {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.sqp-title {
+  font-weight: 600;
+  font-size: 14px;
+  color: #ffffff;
+}
+
+.sqp-badge {
+  background: #4a4a6a;
+  color: #a0a0c0;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 10px;
+  min-width: 18px;
+  text-align: center;
+}
+
+.sqp-badge.sqp-badge-active {
+  background: #6366f1;
+  color: white;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+/* ============================================================================
+   STATUS BAR
+   ============================================================================ */
+
+.sqp-status {
+  padding: 8px 12px;
+  background: #222244;
+  border-bottom: 1px solid #333355;
+  font-size: 11px;
+}
+
+.sqp-status-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.sqp-status-row:last-child {
+  margin-bottom: 0;
+}
+
+.sqp-status strong {
+  color: #8b8bf0;
+}
+
+.sqp-status strong.sqp-limit {
+  color: #ef4444;
+}
+
+/* ============================================================================
+   DEBUG PANEL
+   ============================================================================ */
+
+.sqp-debug {
+  padding: 8px 12px;
+  background: #1a1a30;
+  border-bottom: 1px solid #333355;
+  font-size: 10px;
+  font-family: 'Monaco', 'Consolas', monospace;
+}
+
+.sqp-debug-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px 12px;
+}
+
+.sqp-debug-content div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.sqp-debug-content span {
+  color: #666688;
+}
+
+.sqp-debug-content strong {
+  color: #8b8bf0;
+}
+
+/* ============================================================================
+   ALERT
+   ============================================================================ */
+
+.sqp-alert {
+  padding: 10px 12px;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.sqp-alert-warning {
+  background: #3d3200;
+  border-bottom: 1px solid #665500;
+  color: #fbbf24;
+}
+
+.sqp-alert-error {
+  background: #3d1212;
+  border-bottom: 1px solid #7f1d1d;
+  color: #f87171;
+}
+
+.sqp-alert-info {
+  background: #1e3a5f;
+  border-bottom: 1px solid #1e40af;
+  color: #60a5fa;
+}
+
+.sqp-alert-success {
+  background: #1a3a2a;
+  border-bottom: 1px solid #166534;
+  color: #86efac;
+}
+
+/* ============================================================================
+   QUEUE LIST
+   ============================================================================ */
+
+.sqp-body {
+  flex: 1;
+  overflow-y: auto;
+  max-height: 180px;
+}
+
+.sqp-queue-list {
+  padding: 8px;
+}
+
+.sqp-empty {
+  text-align: center;
+  padding: 20px;
+  color: #666688;
+  font-style: italic;
+}
+
+.sqp-queue-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 10px;
+  margin-bottom: 6px;
+  background: #252545;
+  border-radius: 8px;
+  border-left: 3px solid #4a4a6a;
+  transition: all 0.2s ease;
+}
+
+.sqp-queue-item:hover {
+  background: #2a2a50;
+}
+
+.sqp-queue-item.sqp-status-queued {
+  border-left-color: #6366f1;
+}
+
+.sqp-queue-item.sqp-status-sending {
+  border-left-color: #22c55e;
+  animation: sending-pulse 1s infinite;
+}
+
+@keyframes sending-pulse {
+  0%, 100% { background: #252545; }
+  50% { background: #2a3a35; }
+}
+
+.sqp-queue-item.sqp-status-error {
+  border-left-color: #ef4444;
+  background: #2a2535;
+}
+
+.sqp-item-main {
+  flex: 1;
+  min-width: 0;
+  margin-right: 8px;
+}
+
+.sqp-item-prompt {
+  font-size: 12px;
+  color: #d0d0e0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 4px;
+}
+
+.sqp-item-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10px;
+  color: #8888aa;
+}
+
+.sqp-item-status {
+  font-weight: 500;
+}
+
+.sqp-item-error {
+  cursor: help;
+}
+
+.sqp-item-actions {
+  display: flex;
+  gap: 2px;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.sqp-queue-item:hover .sqp-item-actions {
+  opacity: 1;
+}
+
+/* ============================================================================
+   ADD FORM
+   ============================================================================ */
+
+.sqp-add-form {
+  padding: 10px 12px;
+  background: #1f1f3a;
+  border-top: 1px solid #333355;
+}
+
+.sqp-add-form textarea {
+  width: 100%;
+  padding: 8px 10px;
+  background: #252545;
+  border: 1px solid #404060;
+  border-radius: 6px;
+  color: #e0e0e0;
+  font-size: 12px;
+  resize: none;
+  font-family: inherit;
+  margin-bottom: 8px;
+}
+
+.sqp-add-form textarea:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+}
+
+.sqp-add-form textarea::placeholder {
+  color: #666688;
+}
+
+.sqp-form-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.sqp-form-actions select {
+  flex: 1;
+  padding: 6px 8px;
+  background: #252545;
+  border: 1px solid #404060;
+  border-radius: 6px;
+  color: #e0e0e0;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.sqp-form-actions select:focus {
+  outline: none;
+  border-color: #6366f1;
+}
+
+/* ============================================================================
+   BUTTONS
+   ============================================================================ */
+
+.sqp-btn {
+  padding: 6px 12px;
+  background: #3a3a5a;
+  border: 1px solid #4a4a6a;
+  border-radius: 6px;
+  color: #d0d0e0;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.sqp-btn:hover {
+  background: #4a4a6a;
+  border-color: #5a5a8a;
+}
+
+.sqp-btn:active {
+  transform: scale(0.98);
+}
+
+.sqp-btn-primary {
+  background: #6366f1;
+  border-color: #6366f1;
+  color: white;
+  font-weight: 500;
+}
+
+.sqp-btn-primary:hover {
+  background: #5558e3;
+  border-color: #5558e3;
+}
+
+.sqp-btn-icon {
+  padding: 4px 6px;
+  font-size: 12px;
+  line-height: 1;
+  background: transparent;
+  border: none;
+}
+
+.sqp-btn-icon:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.sqp-btn-icon.sqp-paused {
+  background: rgba(239, 68, 68, 0.2);
+}
+
+.sqp-btn-sm {
+  padding: 4px 8px;
+  font-size: 11px;
+}
+
+/* ============================================================================
+   FOOTER
+   ============================================================================ */
+
+.sqp-footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: #1a1a2e;
+  border-top: 1px solid #333355;
+  gap: 6px;
+}
+
+.sqp-footer .sqp-btn {
+  flex: 1;
+  text-align: center;
+}
+
+/* ============================================================================
+   FLOATING BUTTON
+   ============================================================================ */
+
+#sora-queue-floating-btn {
+  position: fixed;
+  bottom: 100px;
+  right: 20px;
+  padding: 8px 14px;
+  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+  border: none;
+  border-radius: 20px;
+  color: white;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+  z-index: 999998;
+  transition: all 0.2s;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+#sora-queue-floating-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(99, 102, 241, 0.5);
+}
+
+#sora-queue-floating-btn:active {
+  transform: translateY(0);
+}
+
+/* ============================================================================
+   NOTIFICATIONS
+   ============================================================================ */
+
+.sqp-notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 12px 20px;
+  background: #252545;
+  border: 1px solid #404060;
+  border-radius: 8px;
+  color: #e0e0e0;
+  font-size: 13px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  z-index: 9999999;
+  opacity: 0;
+  transform: translateX(100%);
+  transition: all 0.3s ease;
+  max-width: 300px;
+}
+
+.sqp-notification-show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.sqp-notification-success {
+  background: #1a3a2a;
+  border-color: #22c55e;
+  color: #86efac;
+}
+
+.sqp-notification-error {
+  background: #3a1a1a;
+  border-color: #ef4444;
+  color: #fca5a5;
+}
+
+.sqp-notification-warning {
+  background: #3a3a1a;
+  border-color: #eab308;
+  color: #fde047;
+}
+
+.sqp-notification-info {
+  background: #1a2a3a;
+  border-color: #3b82f6;
+  color: #93c5fd;
+}
+
+/* ============================================================================
+   SCROLLBAR
+   ============================================================================ */
+
+.sqp-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sqp-body::-webkit-scrollbar-track {
+  background: #1a1a2e;
+}
+
+.sqp-body::-webkit-scrollbar-thumb {
+  background: #404060;
+  border-radius: 3px;
+}
+
+.sqp-body::-webkit-scrollbar-thumb:hover {
+  background: #505070;
+}
+
+/* ============================================================================
+   RESPONSIVE / DARK MODE COMPAT
+   ============================================================================ */
+
+@media (max-width: 480px) {
+  #sora-queue-panel {
+    width: calc(100vw - 40px);
+    bottom: 10px;
+    right: 10px;
+  }
+
+  #sora-queue-floating-btn {
+    bottom: 80px;
+    right: 10px;
+  }
+}
+
+/* Ensure our styles don't get overridden */
+#sora-queue-panel *,
+#sora-queue-panel *::before,
+#sora-queue-panel *::after,
+#sora-queue-floating-btn,
+.sqp-notification {
+  box-sizing: border-box;
+}
